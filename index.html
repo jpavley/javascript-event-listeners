@@ -1,0 +1,165 @@
+<!doctype html>
+</head>
+  <title>Fun with Listeners</title>
+
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+      color: blue;
+    }
+
+    p {
+      line-height: 140%;
+      color: gray;
+    }
+
+    hr {
+      width: 50%;
+      border-style: dotted;
+      color: blue;
+    }
+
+    table {
+      width: 100%;
+      font-size: 80%;
+    }
+
+    table, th, td {
+      border-collapse: collapse;
+      border: 2px dotted blue;
+      margin: 5px 0;    
+    }
+
+    th, td {
+      padding: 3px;
+      width: 50%;
+    }
+
+    td.message {
+      color: red;
+    }
+
+    #button-container {
+      text-align: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 200%;
+      border-radius: 10px;
+      background: #FE9A2E;
+      color: blue;
+      border: 0px;
+    }
+
+    button:hover {
+      background: #DF7401;
+    }
+
+    button:active {
+      background: #B45F04;
+    }
+  </style>
+</head>
+
+</body>
+  <h1>Fun with Listeners</h1>
+  <p>In this HTML5 page I have a button (Charlie) that listens to every event I can think of using the <em>addEventListener()</em> function. Each time an event is triggered I increment a counter.</p>
+  <hr>
+  <p>Click/touch or rollover Charlie below...</p>
+  <table>
+    <tr>
+      <th>Event Name</th>
+      <th>Events Fired</th>
+    </tr>
+    <tr>
+      <td>mouseDown</td>
+      <td id="mousedown-message" class="message"></td>
+    </tr>
+    <tr>
+      <td>mouseUp</td>
+      <td id="mouseup-message" class="message"></td>
+    <tr>
+      <td>click</td>
+      <td id="click-message" class="message"></td>
+    <tr>
+      <td>dblclick</td>
+      <td id="dblclick-message" class="message"></td>
+    <tr>
+      <td>mousemove</td>
+      <td id="mousemove-message" class="message"></td>
+    <tr>
+      <td>mouseover</td>
+      <td id="mouseover-message" class="message"></td>
+    <tr>
+      <td>mouseout</td>
+      <td id="mouseout-message" class="message"></td>
+  </table>
+
+  <div id="button-container">
+    <button>Charlie</button>
+  </div>
+
+  <script>
+
+    // variables
+
+    var captureFlag = false,
+        counter = 0;
+
+    // object that maps event names to table cells for message display
+
+    var messageMap = {
+      "mousedown": document.querySelector("#mousedown-message"),
+      "mouseup": document.querySelector("#mouseup-message"),
+      "click": document.querySelector("#click-message"),
+      "dblclick": document.querySelector("#dblclick-message"),
+      "mousemove": document.querySelector("#mousemove-message"),    
+      "mouseover": document.querySelector("#mouseover-message"),  
+      "mouseout": document.querySelector("#mouseout-message")  
+    }
+
+    // load interesting parts of the DOM into vars
+    var clickMessage = document.querySelector("#click-message"),
+        dblclickMessage = document.querySelector("#dblclick-message"),
+        moveMessage = document.querySelector("#mousemove-message");
+
+    // load the button into a var
+    var button = document.querySelector("button");
+
+    // configure the button
+    button.style.cursor = "pointer";
+
+    for (var item in messageMap) {
+      button.addEventListener(item, function(eventObject) {
+        handleEvent(eventObject);
+      }, captureFlag);
+    }
+
+    // event handlers
+
+    function handleEvent(eventObject) {
+      var eventType = eventObject.type;
+
+      if (eventType === "mouseover") {
+        clearAll();
+      }
+
+      messageMap[eventType].innerHTML = counter++;
+    }
+
+    // housekeeping functions
+
+    function clearAll() {
+      for (var item in messageMap) {
+        counter = 0;
+        messageMap[item].innerHTML = "";
+      }
+    }
+
+  </script>
+</body>
