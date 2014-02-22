@@ -7,6 +7,8 @@ Exploring JavaScript event listeners using a button, the addEventListener() func
 
 * Tested with Chrome and Safari, assumes HTML5.
 
+* GNU General Public License.
+
 JavaScript Explanation
 ----------------------
 
